@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane prefHeight="620.0" prefWidth="860.0" style="-fx-background-color: #f4f6f9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.controller.MainController">
+    <!-- Top Section: Title + Key & Mode Controls -->
+    <top>
+        <VBox spacing="12.0" style="-fx-background-color: #ffffff; -fx-border-color: #dce1e7; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="15.0" right="20.0" bottom="15.0" left="20.0"/>
+            </padding>
+            <Label text="AES Image Encryption &amp; Decryption" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
+            
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label text="Mode:" style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="modeComboBox" prefWidth="110.0"/>
+                
+                <Label text="AES Key (Base64):" style="-fx-font-weight: bold;">
+                    <HBox.margin><Insets left="10.0"/></HBox.margin>
+                </Label>
+                <TextField fx:id="keyTextField" promptText="Generate or paste AES key..." HBox.hgrow="ALWAYS"/>
+                
+                <Button text="Generate Key" onAction="#onGenerateKey" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Button text="Save Key" onAction="#onSaveKey"/>
+                <Button text="Load Key" onAction="#onLoadKey"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Section: Input & Output Image Previews -->
+    <center>
+        <HBox alignment="CENTER" spacing="25.0">
+            <padding>
+                <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
+            </padding>
+            
+            <!-- Left Box: Input Image -->
+            <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-background-radius: 6;">
+                <padding><Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/></padding>
+                <Label text="Input Image (Plaintext / Ciphertext)" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <StackPane prefHeight="320.0" prefWidth="320.0" style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0;">
+                    <ImageView fx:id="inputImageView" fitHeight="310.0" fitWidth="310.0" preserveRatio="true"/>
+                </StackPane>
+                <Button text="Select Image..." onAction="#onSelectImage" prefWidth="160.0"/>
+            </VBox>
+
+            <!-- Right Box: Output Image -->
+            <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-background-radius: 6;">
+                <padding><Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/></padding>
+                <Label text="Output Image (Result)" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <StackPane prefHeight="320.0" prefWidth="320.0" style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0;">
+                    <ImageView fx:id="outputImageView" fitHeight="310.0" fitWidth="310.0" preserveRatio="true"/>
+                </StackPane>
+                <Button text="Save Output Image..." onAction="#onSaveOutputImage" prefWidth="160.0"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Bottom Section: Action Buttons & Status -->
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #ffffff; -fx-border-color: #dce1e7; -fx-border-width: 1 0 0 0;">
+            <padding>
+                <Insets top="15.0" right="20.0" bottom="15.0" left="20.0"/>
+            </padding>
+            <Button text="Encrypt Image" onAction="#onEncryptImage" prefWidth="140.0" prefHeight="36.0"
+                    style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="Decrypt Image" onAction="#onDecryptImage" prefWidth="140.0" prefHeight="36.0"
+                    style="-fx-background-color: #d97706; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Label fx:id="statusLabel" text="Status: Ready" style="-fx-text-fill: #475569; -fx-font-weight: bold;"/>
+        </HBox>
+    </bottom>
+</BorderPane>
