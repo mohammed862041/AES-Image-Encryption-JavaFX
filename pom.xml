@@ -29,7 +29,34 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+         <!-- Linux Native Libraries for Cross-Platform JAR -->
+        <dependency>
+           <groupId>org.openjfx</groupId>
+           <artifactId>javafx-graphics</artifactId>
+           <version>${javafx.version}</version>
+           <classifier>linux</classifier>
+       </dependency>
+       <dependency>
+           <groupId>org.openjfx</groupId>
+           <artifactId>javafx-base</artifactId>
+           <version>${javafx.version}</version>
+           <classifier>linux</classifier>
+       </dependency>
+       <dependency>
+           <groupId>org.openjfx</groupId>
+           <artifactId>javafx-controls</artifactId>
+           <version>${javafx.version}</version>
+           <classifier>linux</classifier>
+       </dependency>
+       <dependency>
+           <groupId>org.openjfx</groupId>
+           <artifactId>javafx-fxml</artifactId>
+           <version>${javafx.version}</version>
+           <classifier>linux</classifier>
+       </dependency>
     </dependencies>
+    <!-- Linux Native Libraries for Cross-Platform JAR -->
+    
 
     <build>
         <plugins>
