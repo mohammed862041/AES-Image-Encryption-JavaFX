@@ -87,6 +87,14 @@ src/main/
 
 ---
 
+### Quick Start (Download & Run)
+1. Download the latest `JavaFXApp-1.0-SNAPSHOT.jar` from the [Releases](../../releases) page.
+2. Make sure **JDK 27** is installed on your machine.
+3. Run the application:
+   ```bash
+   java -jar JavaFXApp-1.0-SNAPSHOT.jar
+
+---
 ## Usage Workflow
 
 1. **Generate or Load a Key:** Click **Generate Key** to create a new 128-bit AES key (optionally click **Save Key** to store it for later decryption).
