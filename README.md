@@ -106,8 +106,7 @@ src/main/
 
 ## Screenshots
 
-<!-- Add screenshots of your application here after pushing them to a /screenshots folder -->
-<!-- Example: ![Main Interface](screenshots/main_ui.png) -->
+<img width="1077" height="813" alt="image" src="https://github.com/user-attachments/assets/5e1284e5-16ca-4eb2-9d7a-b88710bae79a" />
 
 ---
 
