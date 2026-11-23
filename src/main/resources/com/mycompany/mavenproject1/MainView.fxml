@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- FXML imports allowing this layout to reference JavaFX controls, layouts, insets, and ImageView -->
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -8,26 +9,37 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 
+<!-- Root layout dividing the window into top, center, and bottom regions, wired to MainController -->
 <BorderPane prefHeight="620.0" prefWidth="860.0" style="-fx-background-color: #f4f6f9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.mavenproject1.controller.MainController">
     <!-- Top Section: Title + Key & Mode Controls -->
     <top>
+        <!-- Vertical container stacking the app title above the mode and AES key toolbar -->
         <VBox spacing="12.0" style="-fx-background-color: #ffffff; -fx-border-color: #dce1e7; -fx-border-width: 0 0 1 0;">
             <padding>
+                <!-- Adds inner spacing around the top header bar -->
                 <Insets top="15.0" right="20.0" bottom="15.0" left="20.0"/>
             </padding>
+            <!-- Main application header title -->
             <Label text="AES Image Encryption &amp; Decryption" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1e293b;"/>
             
+            <!-- Horizontal row containing AES mode selector, Base64 key text box, and key action buttons -->
             <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <Label text="Mode:" style="-fx-font-weight: bold;"/>
+                <Label text="Mode:" style="-fx-font-weight: bold;"/> <!-- Label for the AES mode dropdown -->
+                <!-- Dropdown populated in MainController.initialize() with ECB, CBC, and CTR -->
                 <ComboBox fx:id="modeComboBox" prefWidth="110.0"/>
                 
+                <!-- Label for the AES key field, spaced 10px away from the mode dropdown -->
                 <Label text="AES Key (Base64):" style="-fx-font-weight: bold;">
                     <HBox.margin><Insets left="10.0"/></HBox.margin>
                 </Label>
+                <!-- Stretches horizontally (HBox.hgrow="ALWAYS") to show or accept a Base64-encoded AES key -->
                 <TextField fx:id="keyTextField" promptText="Generate or paste AES key..." HBox.hgrow="ALWAYS"/>
                 
+                <!-- Triggers MainController.onGenerateKey() to create a new 128-bit AES key -->
                 <Button text="Generate Key" onAction="#onGenerateKey" style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <!-- Triggers MainController.onSaveKey() to save the Base64 key to a file -->
                 <Button text="Save Key" onAction="#onSaveKey"/>
+                <!-- Triggers MainController.onLoadKey() to load a saved key file into keyTextField -->
                 <Button text="Load Key" onAction="#onLoadKey"/>
             </HBox>
         </VBox>
@@ -35,28 +47,38 @@
 
     <!-- Center Section: Input & Output Image Previews -->
     <center>
+        <!-- Places the Input Image card and Output Image card side by side in the center of the window -->
         <HBox alignment="CENTER" spacing="25.0">
             <padding>
+                <!-- Adds outer breathing room around the two preview cards -->
                 <Insets top="20.0" right="20.0" bottom="20.0" left="20.0"/>
             </padding>
             
             <!-- Left Box: Input Image -->
+            <!-- Card displaying the selected source image and the button to choose an image file -->
             <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-background-radius: 6;">
-                <padding><Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/></padding>
-                <Label text="Input Image (Plaintext / Ciphertext)" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <padding><Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/></padding> <!-- Inner card padding -->
+                <Label text="Input Image (Plaintext / Ciphertext)" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/> <!-- Card heading -->
+                <!-- Fixed 320x320 frame that keeps the preview area steady regardless of image size -->
                 <StackPane prefHeight="320.0" prefWidth="320.0" style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0;">
+                    <!-- Displays the loaded input image scaled proportionally inside 310x310 -->
                     <ImageView fx:id="inputImageView" fitHeight="310.0" fitWidth="310.0" preserveRatio="true"/>
                 </StackPane>
+                <!-- Triggers MainController.onSelectImage() to open the image file chooser -->
                 <Button text="Select Image..." onAction="#onSelectImage" prefWidth="160.0"/>
             </VBox>
 
             <!-- Right Box: Output Image -->
+            <!-- Card displaying the encrypted or decrypted result image and the button to save it as PNG -->
             <VBox alignment="CENTER" spacing="12.0" style="-fx-background-color: white; -fx-border-color: #cbd5e1; -fx-border-radius: 6; -fx-background-radius: 6;">
-                <padding><Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/></padding>
-                <Label text="Output Image (Result)" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/>
+                <padding><Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/></padding> <!-- Inner card padding -->
+                <Label text="Output Image (Result)" style="-fx-font-weight: bold; -fx-text-fill: #334155;"/> <!-- Card heading -->
+                <!-- Fixed 320x320 frame matching the input preview box -->
                 <StackPane prefHeight="320.0" prefWidth="320.0" style="-fx-background-color: #f8fafc; -fx-border-color: #e2e8f0;">
+                    <!-- Displays the encrypted or decrypted output image scaled proportionally inside 310x310 -->
                     <ImageView fx:id="outputImageView" fitHeight="310.0" fitWidth="310.0" preserveRatio="true"/>
                 </StackPane>
+                <!-- Triggers MainController.onSaveOutputImage() to export the result losslessly as PNG -->
                 <Button text="Save Output Image..." onAction="#onSaveOutputImage" prefWidth="160.0"/>
             </VBox>
         </HBox>
@@ -64,14 +86,19 @@
 
     <!-- Bottom Section: Action Buttons & Status -->
     <bottom>
+        <!-- Footer bar containing the Encrypt/Decrypt action buttons and the live status message label -->
         <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: #ffffff; -fx-border-color: #dce1e7; -fx-border-width: 1 0 0 0;">
             <padding>
+                <!-- Adds inner spacing around the footer controls -->
                 <Insets top="15.0" right="20.0" bottom="15.0" left="20.0"/>
             </padding>
+            <!-- Green button triggering MainController.onEncryptImage() -->
             <Button text="Encrypt Image" onAction="#onEncryptImage" prefWidth="140.0" prefHeight="36.0"
                     style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <!-- Amber button triggering MainController.onDecryptImage() -->
             <Button text="Decrypt Image" onAction="#onDecryptImage" prefWidth="140.0" prefHeight="36.0"
                     style="-fx-background-color: #d97706; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <!-- Updated dynamically by MainController.updateStatus() with green success or red error messages -->
             <Label fx:id="statusLabel" text="Status: Ready" style="-fx-text-fill: #475569; -fx-font-weight: bold;"/>
         </HBox>
     </bottom>
